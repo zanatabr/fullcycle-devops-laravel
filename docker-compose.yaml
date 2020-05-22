@@ -5,7 +5,7 @@ services:
     app:
         build: .
         container_name: app
-        entrypoint: dockerize -template ./.docker/app/.env:.env -wait tcp://db:3306 -timeout 40s ./.docker/entrypoint.sh
+        entrypoint: dockerize -template ./.docker/app/.env.tmpl:.env -wait tcp://db:3306 -timeout 40s -wait-retry-interval 3s ./.docker/app/entrypoint.sh
         environment:
           - DB_HOST=db
           - DB_DATABASE=laravel
@@ -22,6 +22,11 @@ services:
     nginx:
         build: .docker/nginx
         container_name: nginx
+        entrypoint: dockerize -template /etc/nginx/conf.d/nginx.conf:/etc/nginx/conf.d/nginx.conf -wait tcp://app:9000 -timeout 40s -wait-retry-interval 5s nginx
+        command: -g "daemon off;" -c /etc/nginx/nginx.conf
+        environment:
+          - APP_HOST=app
+          - APP_PORT=9000
         restart: always
         tty: true
         ports:
@@ -35,6 +40,7 @@ services:
 
     db:
         image: mysql:5.7
+        # Este comando é importante para que o mysql execute adequadamente
         command: --innodb-use-native-aio=0
         container_name: db
         restart: always
@@ -52,6 +58,7 @@ services:
 
     redis:
         image: redis:alpine
+        container_name: redis
         expose:
           - 6379
         networks:

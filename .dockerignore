@@ -1,0 +1,7 @@
+.git*
+.docker/dbdata
+.docker/nginx
+.env*
+docker-compose.yaml
+Dockerfile*
+README.md
