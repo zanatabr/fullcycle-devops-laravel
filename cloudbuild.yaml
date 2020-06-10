@@ -14,7 +14,7 @@ steps:
 
 - id: "Copia do .env"
   name: 'gcr.io/cloud-builders/docker'
-  args: ['exec','-t','app','cp', '.env.example','.env']
+  args: ['exec','-t','app','cp', '.env','.env']
 
 - id: "Execução do key:generate"
   name: 'gcr.io/cloud-builders/docker'
