@@ -7,3 +7,7 @@ steps:
 - id: "Rodando docker container ls"
   name: 'gcr.io/cloud-builders/docker'
   args: ['container','ls']
+
+- id: "Execução do composer"
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['exec','-t','app','composer', 'install']
