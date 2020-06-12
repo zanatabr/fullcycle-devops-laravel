@@ -1,5 +1,5 @@
-# Compose file usado apenas para os procedimentos realizados 
-# no Google Cloud Build
+# Compose file usado apenas para os procedimentos  
+# realizados no Google Cloud Build
 version: '3'
 
 services:
