@@ -37,3 +37,4 @@ spec:
   selector:
     app: redis
     role: master
+  clusterIP: None
