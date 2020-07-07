@@ -14,7 +14,8 @@ COPY . /var/www
 
 RUN composer install \
     && php artisan config:cache \
-    && chmod -R 775 storage
+    && chown -R www-data:www-data /var/www \   
+    && chmod -R 775 /var/www/storage
 
 RUN ln -s public html
 
